@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "WebGridTest";
+}
+
+<h2>WebGridTest</h2>
+
+<h3>Grid with no columns defined</h3>
+<div id="noCols">
+    Start:      <div class="startTime"></div>
+    End  :      <div class="endTime"></div> 
+    Duration :  <div class="duration"></div>
+
+    <img src="Content/ajax-loader.gif" />
+    <div class="grid"></div>
+</div>
+<h3>Grid with columns defined</h3>
+<div id="cols">
+    Start:      <div class="startTime"></div>
+    End  :      <div class="endTime"></div>
+    Duration :  <div class="duration"></div>
+
+    <img src="Content/ajax-loader.gif" />
+    <div class="grid"></div>
+</div>
+
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+        loadGrid("noCols", "home/NoColumnsGrid?totalColumns=30&totalRows=100");
+        loadGrid("cols", "home/ColumnsGrid?totalColumns=30&totalRows=100");
+
+        function loadGrid(divId, url)
+        {
+            var startTime = new Date();
+            $("#" + divId + " .startTime").text(startTime.toGMTString());
+            
+            $("#" + divId + " .grid").load(url, function(event) 
+            {
+                $("#" + divId + " img").hide();
+
+                var endTime = new Date();
+                $("#" + divId + " .endTime").text(endTime.toGMTString());
+
+                var duration = (endTime.getTime() - startTime.getTime()) / 1000
+                $("#" + divId + " .duration").text(duration + "secs");
+            });
+        }
+    </script>
+}
