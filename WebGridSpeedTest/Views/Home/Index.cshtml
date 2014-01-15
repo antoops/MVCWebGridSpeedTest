@@ -4,30 +4,40 @@
 
 <h2>WebGridTest</h2>
 
+<p>
+    Below two web grids will be rendered via Ajax. Both are backed by some randomly generated dynamic data.
+    The difference is that the second one has columns (and simple formatting) defined for it before the getHtml function is called.
+</p>
+<p>
+    (Look at the source of this page you can adjust the number of columns / rows to generate for each grid
+    the column grid is not only blisteringly faster it scales better as well)
+</p>
+<p>Download from <a href="https://github.com/jamesk/MVCWebGridSpeedTest">https://github.com/jamesk/MVCWebGridSpeedTest</a></p>
+
 <h3>Grid with no columns defined</h3>
 <div id="noCols">
     Start:      <div class="startTime"></div>
     End  :      <div class="endTime"></div> 
     Duration :  <div class="duration"></div>
 
-    <img src="Content/ajax-loader.gif" />
+    <img src="@Url.Content("/Content/ajax-loader.gif")" />
     <div class="grid"></div>
 </div>
-<h3>Grid with columns defined</h3>
+<h3>Grid with columns (and formatting) defined</h3>
 <div id="cols">
     Start:      <div class="startTime"></div>
     End  :      <div class="endTime"></div>
     Duration :  <div class="duration"></div>
 
-    <img src="Content/ajax-loader.gif" />
+    <img src="@Url.Content("/Content/ajax-loader.gif")" />
     <div class="grid"></div>
 </div>
 
 
 @section scripts {
     <script language="javascript" type="text/javascript">
-        loadGrid("noCols", "home/NoColumnsGrid?totalColumns=30&totalRows=100");
-        loadGrid("cols", "home/ColumnsGrid?totalColumns=30&totalRows=100");
+        loadGrid("noCols", "@Url.Action("NoColumnsGrid")?totalColumns=30&totalRows=100");
+        loadGrid("cols", "@Url.Action("ColumnsGrid")?totalColumns=30&totalRows=100");
 
         function loadGrid(divId, url)
         {
